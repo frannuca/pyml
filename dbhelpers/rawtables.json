@@ -1,0 +1,145 @@
+{
+    "dbSchema":{    
+    "_comment1":"MBIS raw data schema",
+    "_comment2":"http://dataatwork.org/guides/json-table-schema/",
+    "tables":[
+            {
+                "name":"raw_mbis_kpi_metadata",
+                "fk":{
+                    "this_column": "",
+                    "that_table":"",
+                    "that_table_column":""
+                },
+                "fields":[
+                    {
+                        "name":"kpi_key",
+                        "type": "text",
+                        "pk": false,                        
+                        "null": true,
+                        "comment": "Assignment of measures/scores to topical groups"           
+                    },
+                    {
+                        "name":"desc_short",
+                        "type": "text",
+                        "pk": false,
+                        "null": true,
+                        "comment": "short description of kpi key"           
+                    },
+                    {
+                        "name":"valid_from",
+                        "type": "DATETIME",
+                        "pk": false,
+                        "null": true,
+                        "checkconstraint":"check(DATETIME(valid_from) is not null)",
+                        "comment": "technical key"           
+                    },
+                    {
+                        "name":"valid_to",
+                        "type": "DATETIME",
+                        "pk": false,
+                        "null": false,
+                        "checkconstraint":"check(DATETIME(valid_to)  is not null)",
+                        "comment": "technical key"           
+                    },
+                    {
+                        "name":"update_date",
+                        "type": "DATETIME",
+                        "pk": false,
+                        "null": true,
+                        "checkconstraint":"check(DATETIME(update_date) is not null)",
+                        "comment": "technical key"           
+                    },
+                    {
+                        "name":"update_user",
+                        "type": "text",
+                        "pk": false,
+                        "null": true,
+                        "comment": "technical key"           
+                    },
+                    {
+                        "name":"h_load_datetime",
+                        "type": "DATETIME",
+                        "pk": false,
+                        "null": true,
+                        "checkconstraint":"check(DATETIME(h_load_datetime) is not null)",
+                        "comment": "technical key"           
+                    }            
+                ]
+            },
+        
+            {
+                "name":"raw_mbis_kri_metadata",
+                "fields":[
+                    {
+                        "name":"kri_key",
+                        "type": "text",
+                        "pk": false,
+                        "null": true,
+                        "comment": "Assignment of measures/scores to topical groups"           
+                    },
+                    {
+                        "name":"kri_id",
+                        "type": "text",
+                        "pk": false,
+                        "null": true,
+                        "comment": "kri id"           
+                    },
+                    {
+                        "name":"desc_short",
+                        "type": "text",
+                        "pk": false,
+                        "null": true,
+                        "comment": "short description of kpi key"           
+                    },
+                    {
+                        "name":"desc_long",
+                        "type": "text",
+                        "pk": false,
+                        "null": true,
+                        "comment": "long description of kpi key"           
+                    },
+                    {
+                        "name":"valid_from",
+                        "type": "datetime",
+                        "pk": false,
+                        "null": true,
+                        "checkconstraint":"check(DATETIME(valid_from)  is not null)",
+                        "comment": "technical key"           
+                    },
+                    {
+                        "name":"valid_to",
+                        "type": "datetime",
+                        "pk": false,
+                        "null": true,
+                        "checkconstraint":"check(DATETIME(valid_to))",
+                        "comment": "technical key"           
+                    },
+                    {
+                        "name":"update_date",
+                        "type": "datetime",
+                        "pk": false,
+                        "null": true,
+                        "checkconstraint":"check(DATETIME(update_date)  is not null)",
+                        "comment": "technical key"           
+                    },
+                    {
+                        "name":"update_user",
+                        "type": "text",
+                        "pk": false,
+                        "null": true,
+                        "comment": "technical key"           
+                    },
+                    {
+                        "name":"h_load_datetime",
+                        "type": "datetime",
+                        "pk": false,
+                        "null": true,
+                        "checkconstraint":"check(DATETIME(h_load_datetime)  is not null)",
+                        "comment": "technical key"           
+                    }            
+                ]
+            }
+    ]
+}
+    
+}
