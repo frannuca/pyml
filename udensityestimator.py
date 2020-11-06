@@ -13,6 +13,7 @@ class UnivariateDensityEstimator(torch.nn.Module):
         torch.nn.init.xavier_normal_(self.linear1.weight)
         torch.nn.init.xavier_normal_(self.linear1.weight)
         torch.nn.init.xavier_normal_(self.linear3.weight)
+        
 
     
     def forward(self,x):
@@ -20,20 +21,24 @@ class UnivariateDensityEstimator(torch.nn.Module):
         s = self.activation(s)
 
         s = self.linear2(s)
-        s = self.activation(s)
-
-        s= self.linear3(s)
         s = torch.sigmoid(s)
+
+        s = self.linear3(s)
+        s = torch.sigmoid(s)
+
                  
         return s
 
 #create training data:
-Ns=750
-ss = np.random.gamma(7,1,Ns)
+Ns=20000
+ss = np.concatenate((np.random.gamma(7,1,int(Ns/4)),
+                    5.0*np.random.normal(-2,1,int(Ns/4)),
+                    1.0*np.random.normal(-5,1,int(Ns/4)),
+                    15*np.random.normal(12,1,int(Ns/4))),axis=0)
 X, _ = torch.sort(torch.from_numpy(ss).float())
 m = torch.mean(X)
 s = torch.max(X)-torch.min(X)
-X =  (X - m)/s*2
+X =  (X - m)/s
 X=X.unsqueeze(-1)
 
 sx = X
@@ -55,15 +60,15 @@ criterion = my_loss#torch.nn.MSELoss(reduction='sum')
 optimizer = torch.optim.Adam(model.parameters(),lr=0.01)
 
 
-
-
-for t in range(5000):
+for t in range(10000):
     Y,_ = torch.sort(torch.rand(Ns))
     Y=Y.unsqueeze(-1)
     y_pred = model(X)
     loss = criterion(y_pred,Y)
     if t % 100 == 99 or t==0:
         print(t,loss.item())
+        if loss.item()<0.1:
+            break
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
